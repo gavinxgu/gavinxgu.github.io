@@ -595,7 +595,7 @@ function App() {
           {...{
             name: "Steinway & Sons",
             repo: "https://github.com/gavinxgu/piano",
-            url: "http://piano.meox.com.cn/",
+            url: "https://piano.gavingu.cn/",
             desc: "施坦威钢琴模拟器",
           }}
         />
