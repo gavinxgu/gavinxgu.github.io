@@ -12,7 +12,7 @@ import { ReactComponent as GithubIcon } from "./assets/github-icon.svg"
 // }
 
 const Skills = {
-  Node: "Nodejs",
+  Node: "node.js",
   TS: "typescript",
   React: "react",
   Vue: "vue",
@@ -47,6 +47,7 @@ const Skills = {
   Python: "python",
   Asyncio: "asyncio",
   Ceph: "ceph",
+  Unity: "unity3D",
 }
 
 const Breif: React.FC = () => {
@@ -195,6 +196,7 @@ const Company = {
   Tencent: {
     name: "腾讯",
     department: {
+      LightspeedQuantum: "IEG 光子工作室群",
       PCGContentSafety: "PCG 技术运营部 内容安全中心",
     },
   },
@@ -206,6 +208,24 @@ const Projects = {
 }
 
 const experience: ExperienceProps[] = [
+  {
+    company: Company.Tencent.name,
+    department: Company.Tencent.department.LightspeedQuantum,
+    base: "深圳",
+    position: "游戏客户端实习生",
+    isIntern: true,
+    projects: [
+      {
+        name: '腾讯学院校企合作项目"游戏策划公开课"',
+        percent: 0.8,
+        stacks: [Skills.Unity, Skills.Node, Skills.Vue],
+        desc:
+          "作为《校规破坏者》主程序以及辅助策划拿到了小组项目第一名。并获得 2018 暑期腾讯游戏光子工作室实习 offer",
+      },
+    ],
+    started: moment("2017-09").valueOf(),
+    ended: moment("2017-12").valueOf(),
+  },
   {
     company: Company.Sensetime.name,
     department: Company.Sensetime.department.DCPParrots,
@@ -599,6 +619,14 @@ function App() {
             desc: "施坦威钢琴模拟器",
           }}
         />
+        <Divider>{"兴趣"}</Divider>
+        <div>{"清华大学“文艺优秀”奖学金（2014、2015）"}</div>
+        <div>{"清华大学 12.9 合唱比赛钢琴伴奏"}</div>
+        <div>{"清华大学阿卡贝拉清唱社 T-Voice 乐团（男中音）"}</div>
+        <div>{"清华大学校园歌手大赛（十佳、最佳人气奖）"}</div>
+        <div>
+          {"第七轮中美人文交流高层磋商（中方合唱团代表，美方为 Yale 合唱团）"}
+        </div>
       </div>
     </ThemeContext.Provider>
   )
