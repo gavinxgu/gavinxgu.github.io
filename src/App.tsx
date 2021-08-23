@@ -1,10 +1,13 @@
-/** @jsx jsx */
-import { jsx, ThemeContext, Global } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import { ThemeContext, Global } from "@emotion/react"
 import "./App.css"
 import IDPhoto from "./assets/id_ photo.jpg"
-import themes, { Theme } from "./themes"
+import { byteDanceTheme } from "./themes"
+import { EducationItem } from "./sections/Education"
+import { ExperienceItem, ExperienceProps } from "./sections/Experience"
+import { SkillItem } from "./sections/Skill"
+import { Breif } from "./sections/Breif"
 import moment from "moment"
-import { ReactComponent as GithubIcon } from "./assets/github-icon.svg"
 
 // enum Language {
 //   Chinese = "中文",
@@ -50,36 +53,13 @@ const Skills = {
   Unity: "unity3D",
 }
 
-const Breif: React.FC = () => {
-  return (
-    <div css={() => ({ textAlign: "right" })}>
-      <h1>{"顾乡"}</h1>
-      <div>
-        <a href={"https://github.com/gavinxgu"}>
-          <GithubIcon
-            css={(theme: Theme) => ({
-              height: "2rem",
-              verticalAlign: "middle",
-              fill: theme.colors.text,
-            })}
-          />
-          {" gavinxgu"}
-        </a>
-      </div>
-      {/* <div>{"+86 176 1086 5295"}</div> */}
-      <div>{"gx199492@qq.com / gavinxgu@gmail.com"}</div>
-      <div>{"1994.08 男"}</div>
-    </div>
-  )
-}
-
 const Divider: React.FC<{ align?: "left" | "right" | "center" }> = ({
   align = "center",
   children,
 }) => {
   return (
     <div
-      css={(theme: Theme) => ({
+      css={(theme) => ({
         display: "table",
         margin: "5rem 0 0.8rem 0",
         textAlign: align,
@@ -89,18 +69,20 @@ const Divider: React.FC<{ align?: "left" | "right" | "center" }> = ({
           position: "relative",
           top: "50%",
           display: "table-cell",
+          height: 0,
           width: "50%",
           borderTop: `2px solid ${theme.colors.primary}`,
-          transform: "translateY(50%)",
+          transform: "translateY(-1px)",
           content: "''",
         },
         "&:after": {
           position: "relative",
           top: "50%",
           display: "table-cell",
+          height: 0,
           width: "50%",
           borderTop: `2px solid ${theme.colors.primary}`,
-          transform: "translateY(50%)",
+          transform: "translateY(-1px)",
           content: "''",
         },
       })}
@@ -108,82 +90,6 @@ const Divider: React.FC<{ align?: "left" | "right" | "center" }> = ({
       {children}
     </div>
   )
-}
-
-const EducationItem: React.FC<{
-  school: string
-  department: string
-  major: string
-  degree: string
-  started: number
-  ended: number
-  content?: React.ReactNode
-}> = ({ school, department, major, degree, started, ended, content }) => {
-  return (
-    <div>
-      <div
-        css={() => ({ display: "grid", gridTemplateColumns: "2fr 1fr 1fr" })}
-      >
-        <span>
-          <span css={() => ({ fontWeight: 800 })}>{school}</span>
-          {" / "}
-          <span css={() => ({ fontWeight: 800 })}>{department}</span>
-          {" / "}
-          <span css={() => ({ fontWeight: 800 })}>{major}</span>
-        </span>
-        <span css={() => ({ textAlign: "right" })}>{degree}</span>
-        <span css={() => ({ textAlign: "right" })}>
-          <span>{moment(started).format("YYYY-MM")}</span>
-          {" - "}
-          <span>
-            {!Number.isFinite(ended) ? "至今" : moment(ended).format("YYYY-MM")}
-          </span>
-        </span>
-      </div>
-      <div css={() => ({})}>{content}</div>
-    </div>
-  )
-}
-
-export const SkillItem: React.FC<{
-  name: string
-  desc?: string
-  level: 1 | 2 | 3 | 4 | 5
-}> = ({ name, desc, level }) => {
-  return (
-    <div css={() => ({ padding: "1rem" })}>
-      <div>
-        <span css={() => ({ fontWeight: 800 })}>{name}</span>{" "}
-        {Array(level)
-          .fill(0)
-          .map(() => "★")}
-        {Array(5 - level)
-          .fill(0)
-          .map(() => "☆")}
-      </div>
-      <div css={(theme: Theme) => ({ color: theme.colors.textSecondary })}>
-        {desc}
-      </div>
-    </div>
-  )
-}
-
-interface ProjectProps {
-  name: string
-  percent: number
-  stacks: string[]
-  desc?: React.ReactNode
-}
-
-interface ExperienceProps {
-  company: string
-  department: string
-  base: string
-  position: string
-  isIntern: boolean
-  projects: ProjectProps[]
-  started: number
-  ended: number
 }
 
 const Company = {
@@ -198,6 +104,12 @@ const Company = {
     department: {
       LightspeedQuantum: "IEG 光子工作室群",
       PCGContentSafety: "PCG 技术运营部 内容安全中心",
+    },
+  },
+  ByteDance: {
+    name: "字节跳动",
+    department: {
+      LarkDesktopK: "Lark Desktop K",
     },
   },
 } as const
@@ -219,8 +131,7 @@ const experience: ExperienceProps[] = [
         name: '腾讯学院校企合作项目"游戏策划公开课"',
         percent: 0.8,
         stacks: [Skills.Unity, Skills.Node, Skills.Vue],
-        desc:
-          "作为《校规破坏者》主程序以及辅助策划拿到了小组项目第一名。并获得 2018 暑期腾讯游戏光子工作室实习 offer",
+        desc: "作为《校规破坏者》主程序以及辅助策划拿到了小组项目第一名。并获得 2018 暑期腾讯游戏光子工作室实习 offer",
       },
     ],
     started: moment("2017-09").valueOf(),
@@ -245,8 +156,7 @@ const experience: ExperienceProps[] = [
           Skills.Echarts,
           Skills.Dagre,
         ],
-        desc:
-          "主要完成darray内存分析可视化工具, 通用模型结构可视化工具, 训练数据可视化",
+        desc: "主要完成darray内存分析可视化工具, 通用模型结构可视化工具, 训练数据可视化",
       },
     ],
     started: moment("2018-09").valueOf(),
@@ -263,8 +173,7 @@ const experience: ExperienceProps[] = [
         name: "评论审核平台",
         percent: 0.01,
         stacks: [Skills.React, Skills.TS, Skills.Webpack, Skills.MobX],
-        desc:
-          "用 MutationObserver 实现了比乐问更好的全文水印和图片水印组件, 可以监控 dom 修改和删除",
+        desc: "用 MutationObserver 实现了比乐问更好的全文水印和图片水印组件, 可以监控 dom 修改和删除",
       },
     ],
     started: moment("2019-01").valueOf(),
@@ -281,8 +190,7 @@ const experience: ExperienceProps[] = [
         name: "用户中心 & SSO 单点登录",
         percent: 0.99,
         stacks: [Skills.Vue, Skills.Vuex, Skills.Webpack],
-        desc:
-          "使用 PostMessage API 进行登录后 popup page 和 origin page 的 ticket 传递",
+        desc: "使用 PostMessage API 进行登录后 popup page 和 origin page 的 ticket 传递",
       },
       {
         name: Projects.PAVI,
@@ -345,102 +253,26 @@ const experience: ExperienceProps[] = [
       },
     ],
     started: moment("2019-06").valueOf(),
+    ended: moment("2020-09").valueOf(),
+  },
+  {
+    company: Company.ByteDance.name,
+    department: Company.ByteDance.department.LarkDesktopK,
+    base: "北京",
+    position: "前端开发工程师",
+    isIntern: false,
+    projects: [
+      {
+        name: "Universe Design 组件库",
+        percent: 1,
+        stacks: [Skills.React, Skills.TS],
+        desc: "负责 Lark Web 基础组件库",
+      },
+    ],
+    started: moment("2020-09").valueOf(),
     ended: Infinity,
   },
 ]
-
-export const ProjectItem: React.FC<ProjectProps> = ({
-  name,
-  stacks,
-  desc,
-  percent,
-}) => {
-  return (
-    <div css={() => ({ padding: "1rem" })}>
-      <div css={() => ({ display: "flex", alignItems: "center" })}>
-        <span css={() => ({ fontSize: "1rem", margin: "0 0.8rem 0 0" })}>
-          {"比重"}
-        </span>
-        <span
-          css={(theme: Theme) => ({
-            background: "#ddd",
-            flex: 1,
-            height: "1rem",
-            borderRadius: "0.5rem",
-            overflow: "hidden",
-          })}
-        >
-          <div
-            css={(theme: Theme) => ({
-              background: theme.colors.primary,
-              width: `${percent * 100}%`,
-              height: "1rem",
-            })}
-          ></div>
-        </span>
-      </div>
-      <div css={() => ({ fontWeight: 800, fontSize: "1.6rem" })}>{name}</div>
-      <p css={(theme: Theme) => ({ fontSize: "1rem" })}>{stacks.join(", ")}</p>
-      <div css={(theme: Theme) => ({ color: theme.colors.textSecondary })}>
-        {desc}
-      </div>
-    </div>
-  )
-}
-
-export const ExperienceItem: React.FC<ExperienceProps> = ({
-  company,
-  position,
-  department,
-  base,
-  isIntern,
-  projects,
-  started,
-  ended,
-}) => {
-  return (
-    <div>
-      <div
-        css={() => ({ display: "grid", gridTemplateColumns: "2fr 1fr 1fr" })}
-      >
-        <span
-          css={(theme: Theme) => ({
-            paddingLeft: "0.4rem",
-            borderLeft: `4px solid ${theme.colors.primary}`,
-          })}
-        >
-          <span css={() => ({ fontWeight: 800, fontSize: "2rem" })}>
-            {company}({base})
-          </span>
-          {" / "}
-          <span css={() => ({ fontWeight: 800 })}>{department}</span>
-        </span>
-        <span css={() => ({ textAlign: "right" })}>
-          {position}
-          {isIntern ? "(实习)" : ""}
-        </span>
-        <span css={() => ({ textAlign: "right" })}>
-          <span>{moment(started).format("YYYY-MM")}</span>
-          {" - "}
-          <span>
-            {!Number.isFinite(ended) ? "至今" : moment(ended).format("YYYY-MM")}
-          </span>
-        </span>
-      </div>
-      <div
-        css={() => ({
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          margin: "1.6rem 0 1.6rem 0",
-        })}
-      >
-        {projects.map((p) => (
-          <ProjectItem key={p.name} {...p} />
-        ))}
-      </div>
-    </div>
-  )
-}
 
 export const MasterPeice: React.FC<{
   name: string
@@ -451,9 +283,7 @@ export const MasterPeice: React.FC<{
   return (
     <div>
       <h3>{repo ? <a href={repo}>{name}</a> : name}</h3>
-      <p css={(theme: Theme) => ({ color: theme.colors.textSecondary })}>
-        {desc}
-      </p>
+      <p css={(theme) => ({ color: theme.colors.textSecondary })}>{desc}</p>
       <iframe
         title={name}
         src={url}
@@ -467,9 +297,9 @@ export const MasterPeice: React.FC<{
 
 function App() {
   return (
-    <ThemeContext.Provider value={themes.byteDance}>
+    <ThemeContext.Provider value={byteDanceTheme}>
       <Global
-        styles={(theme: Theme) => `
+        styles={(theme) => `
       body {
         font-size: ${theme.variables.fontSizeBase};
         color: ${theme.colors.text};

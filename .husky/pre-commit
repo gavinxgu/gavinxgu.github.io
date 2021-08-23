@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+pnpm lint && pnpm build && git add ./build && git add ./index.html && pnpx lint-staged
