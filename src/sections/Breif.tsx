@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { ReactComponent as GithubIcon } from "../assets/github-icon.svg"
+import { Link } from "../Link"
 
 export const Breif: React.FC = () => {
   return (
     <div css={() => ({ textAlign: "right" })}>
       <h1>{"顾乡"}</h1>
       <div>
-        <a href={"https://github.com/gavinxgu"}>
+        <Link href={"https://github.com/gavinxgu"}>
           <GithubIcon
             css={(theme) => ({
               height: "2rem",
@@ -15,7 +16,7 @@ export const Breif: React.FC = () => {
             })}
           />
           {" gavinxgu"}
-        </a>
+        </Link>
       </div>
       {/* <div>{"+86 176 1086 5295"}</div> */}
       <div>{"gx199492@qq.com / gavinxgu@gmail.com"}</div>

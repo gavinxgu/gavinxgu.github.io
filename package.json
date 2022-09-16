@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.10.4",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -22,7 +23,8 @@
     "start": "react-app-rewired start",
     "build": "PUBLIC_URL=/build react-app-rewired build && mv ./build/index.html ./",
     "test": "react-app-rewired test",
-    "lint": "eslint --ext js,jsx,ts,tsx src"
+    "lint": "eslint --ext js,jsx,ts,tsx src",
+    "postinstall": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app"

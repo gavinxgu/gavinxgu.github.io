@@ -8,6 +8,7 @@ import { ExperienceItem, ExperienceProps } from "./sections/Experience"
 import { SkillItem } from "./sections/Skill"
 import { Breif } from "./sections/Breif"
 import moment from "moment"
+import { Link } from "./Link"
 
 // enum Language {
 //   Chinese = "中文",
@@ -60,34 +61,36 @@ const Divider: React.FC<{ align?: "left" | "right" | "center" }> = ({
   return (
     <div
       css={(theme) => ({
-        display: "table",
+        display: "flex",
+        alignItems: "center",
         margin: "5rem 0 0.8rem 0",
-        textAlign: align,
-        fontSize: "2.1rem",
-        fontWeight: 800,
         "&:before": {
-          position: "relative",
-          top: "50%",
-          display: "table-cell",
+          display: "block",
+          flex: 1,
           height: 0,
-          width: "50%",
           borderTop: `2px solid ${theme.colors.primary}`,
-          transform: "translateY(-1px)",
           content: "''",
         },
         "&:after": {
-          position: "relative",
-          top: "50%",
-          display: "table-cell",
+          display: "block",
+          flex: 1,
           height: 0,
-          width: "50%",
           borderTop: `2px solid ${theme.colors.primary}`,
-          transform: "translateY(-1px)",
           content: "''",
         },
       })}
     >
-      {children}
+      <div
+        css={{
+          padding: "0 0.8rem",
+          fontSize: "2.1rem",
+          fontWeight: 800,
+          flex: 0,
+          wordBreak: "break-all",
+        }}
+      >
+        {children}
+      </div>
     </div>
   )
 }
@@ -121,63 +124,21 @@ const Projects = {
 
 const experience: ExperienceProps[] = [
   {
-    company: Company.Tencent.name,
-    department: Company.Tencent.department.LightspeedQuantum,
-    base: "深圳",
-    position: "游戏客户端实习生",
-    isIntern: true,
-    projects: [
-      {
-        name: '腾讯学院校企合作项目"游戏策划公开课"',
-        percent: 0.8,
-        stacks: [Skills.Unity, Skills.Node, Skills.Vue],
-        desc: "作为《校规破坏者》主程序以及辅助策划拿到了小组项目第一名。并获得 2018 暑期腾讯游戏光子工作室实习 offer",
-      },
-    ],
-    started: moment("2017-09").valueOf(),
-    ended: moment("2017-12").valueOf(),
-  },
-  {
-    company: Company.Sensetime.name,
-    department: Company.Sensetime.department.DCPParrots,
+    company: Company.ByteDance.name,
+    department: Company.ByteDance.department.LarkDesktopK,
     base: "北京",
-    position: "前端实习生",
-    isIntern: true,
+    position: "前端开发工程师",
+    isIntern: false,
     projects: [
       {
-        name: Projects.PAVI,
-        percent: 0.5,
-        stacks: [
-          Skills.Vue,
-          Skills.Vuex,
-          Skills.TS,
-          Skills.SQLite,
-          Skills.WebSocket,
-          Skills.Echarts,
-          Skills.Dagre,
-        ],
-        desc: "主要完成darray内存分析可视化工具, 通用模型结构可视化工具, 训练数据可视化",
+        name: "Universe Design 组件库",
+        percent: 1,
+        stacks: [Skills.React, Skills.TS],
+        desc: "负责 Lark Web 基础组件库",
       },
     ],
-    started: moment("2018-09").valueOf(),
-    ended: moment("2018-12").valueOf(),
-  },
-  {
-    company: Company.Tencent.name,
-    department: Company.Tencent.department.PCGContentSafety,
-    base: "北京",
-    position: "前端实习生",
-    isIntern: true,
-    projects: [
-      {
-        name: "评论审核平台",
-        percent: 0.01,
-        stacks: [Skills.React, Skills.TS, Skills.Webpack, Skills.MobX],
-        desc: "用 MutationObserver 实现了比乐问更好的全文水印和图片水印组件, 可以监控 dom 修改和删除",
-      },
-    ],
-    started: moment("2019-01").valueOf(),
-    ended: moment("2019-05").valueOf(),
+    started: moment("2020-09").valueOf(),
+    ended: Infinity,
   },
   {
     company: Company.Sensetime.name,
@@ -256,21 +217,63 @@ const experience: ExperienceProps[] = [
     ended: moment("2020-09").valueOf(),
   },
   {
-    company: Company.ByteDance.name,
-    department: Company.ByteDance.department.LarkDesktopK,
+    company: Company.Sensetime.name,
+    department: Company.Sensetime.department.DCPParrots,
     base: "北京",
-    position: "前端开发工程师",
-    isIntern: false,
+    position: "前端实习生",
+    isIntern: true,
     projects: [
       {
-        name: "Universe Design 组件库",
-        percent: 1,
-        stacks: [Skills.React, Skills.TS],
-        desc: "负责 Lark Web 基础组件库",
+        name: Projects.PAVI,
+        percent: 0.5,
+        stacks: [
+          Skills.Vue,
+          Skills.Vuex,
+          Skills.TS,
+          Skills.SQLite,
+          Skills.WebSocket,
+          Skills.Echarts,
+          Skills.Dagre,
+        ],
+        desc: "主要完成darray内存分析可视化工具, 通用模型结构可视化工具, 训练数据可视化",
       },
     ],
-    started: moment("2020-09").valueOf(),
-    ended: Infinity,
+    started: moment("2018-09").valueOf(),
+    ended: moment("2018-12").valueOf(),
+  },
+  {
+    company: Company.Tencent.name,
+    department: Company.Tencent.department.PCGContentSafety,
+    base: "北京",
+    position: "前端实习生",
+    isIntern: true,
+    projects: [
+      {
+        name: "评论审核平台",
+        percent: 0.01,
+        stacks: [Skills.React, Skills.TS, Skills.Webpack, Skills.MobX],
+        desc: "用 MutationObserver 实现了比乐问更好的全文水印和图片水印组件, 可以监控 dom 修改和删除",
+      },
+    ],
+    started: moment("2019-01").valueOf(),
+    ended: moment("2019-05").valueOf(),
+  },
+  {
+    company: Company.Tencent.name,
+    department: Company.Tencent.department.LightspeedQuantum,
+    base: "深圳",
+    position: "游戏客户端实习生",
+    isIntern: true,
+    projects: [
+      {
+        name: '腾讯学院校企合作项目"游戏策划公开课"',
+        percent: 0.8,
+        stacks: [Skills.Unity, Skills.Node, Skills.Vue],
+        desc: "作为《校规破坏者》主程序以及辅助策划拿到了小组项目第一名。并获得 2018 暑期腾讯游戏光子工作室实习 offer",
+      },
+    ],
+    started: moment("2017-09").valueOf(),
+    ended: moment("2017-12").valueOf(),
   },
 ]
 
@@ -282,7 +285,7 @@ export const MasterPeice: React.FC<{
 }> = ({ name, desc, repo, url }) => {
   return (
     <div>
-      <h3>{repo ? <a href={repo}>{name}</a> : name}</h3>
+      <h3>{repo ? <Link href={repo}>{name}</Link> : name}</h3>
       <p css={(theme) => ({ color: theme.colors.textSecondary })}>{desc}</p>
       <iframe
         title={name}
@@ -294,6 +297,39 @@ export const MasterPeice: React.FC<{
     </div>
   )
 }
+
+const books: { title: string; publishedAt: moment.Moment; url: string }[] = [
+  {
+    title:
+      "The Concept and Framework of Basic Information Facilities for E-Commerce",
+    publishedAt: moment("2018-10-12"),
+    url: "https://ieeexplore.ieee.org/abstract/document/8592670",
+  },
+  {
+    title: "A MCIN-based architecture of smart agriculture",
+    publishedAt: moment("2017-09-04"),
+    url: "https://www.emerald.com/insight/content/doi/10.1108/IJCS-08-2017-0017/full/html",
+  },
+  {
+    title: "Holographic Personalized Portal for Industrial Ecological System",
+    publishedAt: moment("2017-07-06"),
+    url: "https://dl.acm.org/doi/abs/10.1145/3126973.3126996",
+  },
+  {
+    title: "Intelligent interaction based on holographic personalized portal",
+    publishedAt: moment("2017-06-12"),
+    url: "https://www.emerald.com/insight/content/doi/10.1108/IJCS-08-2017-0016/full/html",
+  },
+]
+
+const patents: { title: string; publishedAt: moment.Moment; url: string }[] = [
+  {
+    title:
+      "一种基于网络可达性计算的宽带推广方法及系统 Broadband promotion method and system based on network accessibility calculation 107800573A",
+    publishedAt: moment("2017-10-31"),
+    url: "http://www.soopat.com/Patent/201711051036?lx=FMSQ",
+  },
+]
 
 function App() {
   return (
@@ -449,6 +485,58 @@ function App() {
             desc: "施坦威钢琴模拟器",
           }}
         />
+        <Divider>{"著作"}</Divider>
+        <div
+          css={{
+            marginBottom: "0.8rem",
+          }}
+        >
+          <Link
+            href="https://scholar.google.com/citations?user=0HxMDA0AAAAJ&hl=en&scioq=gu+xiang"
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            {"Google Scholar"}
+          </Link>
+        </div>
+        {books.map((book, index) => (
+          <div key={index}>
+            <Link href={book.url} target={"_blank"} rel="noreferrer">
+              {index + 1}. {book.title} -{" "}
+              {book.publishedAt.format("YYYY-MM-DD")}
+            </Link>
+          </div>
+        ))}
+        <Divider>{"专利"}</Divider>
+        {patents.map((patent, index) => (
+          <div key={index}>
+            <Link href={patent.url} target={"_blank"} rel="noreferrer">
+              {index + 1}. {patent.title} -{" "}
+              {patent.publishedAt.format("YYYY-MM-DD")}
+            </Link>
+          </div>
+        ))}
+        <Divider>{"语言"}</Divider>
+        <div>
+          {"Columbia University's American Language Program(ALP) "}
+          <strong>{"Level 8"}</strong>
+          {" - 2014"}
+        </div>
+        <div>
+          {"IELTS "}
+          <strong>{"6.5 (L 5.5 S 6.0 R 8.0 W 5.5)"}</strong>
+          {" - 2012"}
+        </div>
+        <div>
+          {"CET4 "}
+          <strong>{"592"}</strong>
+          {" - 2011"}
+        </div>
+        <div>
+          {"CET6 "}
+          <strong>{"550"}</strong>
+          {" - 2011"}
+        </div>
         <Divider>{"兴趣"}</Divider>
         <div>{"清华大学“文艺优秀”奖学金（2014、2015）"}</div>
         <div>{"清华大学 12.9 合唱比赛钢琴伴奏"}</div>

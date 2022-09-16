@@ -93,6 +93,15 @@ export const ExperienceItem: React.FC<ExperienceProps> = ({
           <span>
             {!Number.isFinite(ended) ? "至今" : moment(ended).format("YYYY-MM")}
           </span>
+          (
+          {moment
+            .duration(
+              moment(!Number.isFinite(ended) ? undefined : ended).diff(
+                moment(started),
+              ),
+            )
+            .humanize()}
+          )
         </span>
       </div>
       <div
